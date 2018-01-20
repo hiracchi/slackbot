@@ -104,6 +104,14 @@ class MessageDispatcher(object):
 
     def filter_text(self, msg):
         full_text = msg.get('text', '') or ''
+
+        if 'attachments' in msg:
+            for item in msg['attachments']:
+                if 'text' in item:
+                    full_text += item['text'] + '\n'
+            logger.debug("added attachments text '{}' to text key in message.".format(full_text))
+            msg['text'] = full_text
+
         channel = msg['channel']
         bot_name = self._get_bot_name()
         bot_id = self._get_bot_id()

@@ -109,6 +109,8 @@ class MessageDispatcher(object):
             for item in msg['attachments']:
                 if 'text' in item:
                     full_text += item['text'] + '\n'
+                elif 'pretext' in item:
+                    full_text += item['pretext'] + '\n'
             logger.debug("added attachments text '{}' to text key in message.".format(full_text))
             msg['text'] = full_text
 
